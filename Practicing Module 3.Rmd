@@ -1,0 +1,44 @@
+---
+title: "Practicing Module 3"
+author: "Faye Harwell"
+date: "September 26, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+plot(c(0, 50), c(0, 15), type = "n", xlab = "Sample size", ylab = "Variance")
+```
+
+```{r}
+for (n in seq(5, 50, 5)) # samples of 5, 10, 15...
+{
+    for (i in 1:50) # 50 replicates
+    {
+        x <- rnorm(n, mean = 10, sd = 2)
+        points(n, var(x))
+    }
+}
+```
+#BOOTSTRAPPING- all the rage for small datasets
+
+```{r}
+set <- NULL  # sets up a dummy variable to hold our 10000 simulations
+n <- 15
+for (i in 1:10000) {
+    set[i] <- mean(sample(x, n, replace = TRUE))
+}
+```
+
+```{r}
+quantile(set)
+```
+
+## Set the confidence intervals
+
+```{r}
+quantile(set, c(0.025, 0.975))
+```
